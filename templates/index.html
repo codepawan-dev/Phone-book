@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block body %} 
+<div class="container my-3">
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phonenumber</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+<div class="container my-3">
+    {% if allPhone|length == 0%}
+        <div class="alert alert-dark" role="alert">
+            No phone number found. Add you first phonenumber now
+        </div>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phonenumber</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for phone in allPhone %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ phone.name }}</td>
+                <td>{{ phone.phone_number }}</td>
+                <td>
+                    <a href="/delete/{{phone.sno}}" type="button" class="btn btn-outline-danger btn-sm mx-1">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock body %}  
